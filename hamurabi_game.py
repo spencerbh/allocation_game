@@ -1,4 +1,4 @@
-import cs50
+ import cs50
 
 def print_introductory_message():
     print('''Congratulations, you are the newest ruler of ancient Samaria, elected
@@ -48,8 +48,15 @@ def ask_to_feed_people(bushels_in_storage)
     return bushels to feed
 
 def ask_to_seed_acres(bushels_in_storage, acres_owned)
-    'Ask 
-
+    'Ask user how many acres of land to seed with bushels of grain'
+    acres_to_seed = cs50.get_int('How many acres do you wish to plant with seed'
+    while acres_to_seed > acres_owned:
+        print('O great Hammurabi, we have but ',acres_owned,'acres of land!')
+        acres_to_seed = cs50.get_int('How many acres do you wish to plant with seed'
+    while (acres_to_seed) * 2 > bushels_in_storage:
+        print('O great Hammurabi, we have but ',bushels_in_storage,'bushels of grain!')
+        acres_to_seed = cs50.get_int('How many acres do you wish to plant with seed'
+    return acres_to_seed
 
 years = [1,2,3,4,5,6,7,8,9,10]
 
