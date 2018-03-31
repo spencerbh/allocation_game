@@ -2,7 +2,7 @@
 # 1  write a piece that throws hammy out of the kingdom if he tries some funky shit with a negative number
 
 
-
+import random
 import cs50
 
 def print_introductory_message():
@@ -21,7 +21,7 @@ measured in bushels. The following will help you in your decisions:
   * The market price for land fluctuates yearly.
 
 Rule wisely and you will be showered with appreciation at the end of
-your term. Rule poorly and you will be kicked out of office!''')
+your term. Rule poorly and you will be kicked out of office!\n''')
 
 def ask_to_buy_land(bushels_in_storage, cost_per_acre):
     'Ask user how many bushels to spend buying land.'
@@ -38,29 +38,29 @@ def ask_to_sell_land(acres_owned, acres, bushels_in_storage, cost_per_acre):
         bushels = 0
         return bushels
     else:
-        bushels = cs50.get_int('How many bushels will you buy?')
+        bushels = cs50.get_int('How many bushels will you buy? ')
         while bushels / cost_per_acre > acres_owned:
             print('O great Hammurabi, we have but ', acres_owned,'acres of land!')
-            bushels = cs50.get_int('How many bushels will you buy?')
+            bushels = cs50.get_int('How many bushels will you buy? ')
         return bushels
 
 def ask_to_feed_people(bushels_in_storage):
     'Ask user how many bushels of grain to spend on feeding the people of the city'
-    bushels_to_feed = cs50.get_int('How many bushels do you wish to feed your people?')
+    bushels_to_feed = cs50.get_int('How many bushels do you wish to feed your people? ')
     while bushels_in_storage < bushels_to_feed:
         print('O great Hammurabi, we have but', bushels_in_storage, 'bushels of grain!')
-        bushels_to_feed = cs50.get_int('How many bushels do you wish to feed your people?')
+        bushels_to_feed = cs50.get_int('How many bushels do you wish to feed your people? ')
     return bushels_to_feed
 
 def ask_to_seed_acres(bushels_in_storage, acres_owned):
     'Ask user how many acres of land to seed with bushels of grain'
-    acres_to_seed = cs50.get_int('How many acres do you wish to plant with seed?')
+    acres_to_seed = cs50.get_int('How many acres do you wish to plant with seed? ')
     while acres_owned < acres_to_seed:
         print('O great Hammurabi, we have but ',acres_owned,'acres of land!')
-        acres_to_seed = cs50.get_int('How many acres do you wish to plant with seed?')
+        acres_to_seed = cs50.get_int('How many acres do you wish to plant with seed? ')
     while acres_to_seed * 2 > bushels_in_storage:
         print('O great Hammurabi, we have but ',bushels_in_storage,'bushels of grain!')
-        acres_to_seed = cs50.get_int('How many acres do you wish to plant with seed?')
+        acres_to_seed = cs50.get_int('How many acres do you wish to plant with seed ?')
     return acres_to_seed
 
 #no input functions
@@ -79,10 +79,42 @@ def starved_pop(bushels_to_feed, population):
     'lets see how many people hammurabi starved this year'
     bushels_needed = population * 20
     if bushels_to_feed >= bushels_needed:
-        population = population
+        starved = 0
+        return starved
     elif bushels_to_feed < bushels_needed:
-        population = population - ((bushels_needed - bushels_to_feed) / 20)
-    return population
+        starved = ((bushels_needed - bushels_to_feed) / 20)
+        return starved
+
+def immigration(bushels_in_storage, bushels_to_feed, acres_owned, population):
+    'calculate how many people immigrated to the city'
+    bushels_needed = population * 20
+    if bushels_to_feed >= bushels_needed:
+        immigrants = ((bushels_in_storage + (20 * acres_owned))/(100 * population))+1
+        return immigrants
+    else:
+        immigrants = 0
+        return immigrants
+
+def harvest_1(acres_to_seed):
+    'calculate how many bushels were harvested in the previous year'
+    yield_1 = acres_to_seed * (random.randint(1,8))
+    return yield_1
+
+def rats():
+    'determine how bad, if at all your rat infestation will be'
+    rat_chance = (random.randint(1,5))
+    if rat_chance >= 4:
+        rat_hunger = (random.randint(1,3))
+        rat_hunger = rat_hunger / 10
+        return rat_hunger
+    else:
+        rat_hunger = 0
+        return rat_hunger
+
+def cost_of_land():
+    cost_per_acre = (random.randint(17,23))
+    return cost_per_acre
+
 
 
 
@@ -95,7 +127,7 @@ def hammurabi():
     harvest = 3000 # total bushels harvested
     bushels_per_acre = 3 # amount harvested for each acre planted
     rats_ate = 200 # bushels destroyed by rats
-    bushels_in_storage = 2000 
+    bushels_in_storage = 2800 
     acres_owned = 1000
     cost_per_acre = 19 # each acre costs this many bushels
     plague_deaths = 0
@@ -105,9 +137,9 @@ def hammurabi():
         print('In the previous year ',starved,' people starved to death.')
         print('In the previous year ', immigrants,' people entered the kingdom.')
         print('The population is now ',population,'.')
-        print('We harvested ',harvest,'bushels at ',bushels_per_acre,'bushels per acre.')
-        print('Rats destroyed', rats_ate,' bushels, leaving', bushels_in_storage,' bushels in storage.')
-        print('The city owns', acres_owned,' acres of land.')
+        print('We harvested ',harvest,' bushels at ',bushels_per_acre,' bushels per acre.')
+        print('Rats destroyed ', rats_ate,' bushels, leaving ', bushels_in_storage,' bushels in storage.')
+        print('The city owns ', acres_owned,' acres of land.')
         print('Land is currently worth ', cost_per_acre,' bushels per acre.')
         print('There were ',plague_deaths,' deaths from the plague.')
 
@@ -122,12 +154,37 @@ def hammurabi():
         acres_owned = acres_owned - acres_sold
 
         bushels_to_feed = ask_to_feed_people(bushels_in_storage)
-        bushels_in_storage = bushels_in_storage - bushels_to_feed 
+        bushels_in_storage = bushels_in_storage - bushels_to_feed
 
         acres_to_seed = ask_to_seed_acres(bushels_in_storage, acres_owned)
 
         if plague() == 'OH_GOD':
             population = population / 2 # R.I.P.
-        
+            plague_deaths = population / 2
+
+
+        starved = starved_pop(bushels_to_feed, population)
+        if starved > population * 0.45:
+            print('You\'ve starved too many of your citizens!')
+            break
+        population = population - starved
+
+        immigrants = int(round(immigration(bushels_in_storage, bushels_to_feed, acres_owned, population)))
+        population = population + immigrants
+        print('\n\n')
+
+        rat_hunger = rats()
+        rats_ate = bushels_in_storage * rat_hunger
+        bushels_in_storage = bushels_in_storage - (bushels_in_storage * rat_hunger)
+
+        harvest = harvest_1(acres_to_seed)
+        bushels_per_acre = harvest / acres_to_seed
+        bushels_in_storage = bushels_in_storage + harvest - (acres_to_seed * 2)
+        cost_per_acre = cost_of_land()
+
+    return population , acres_owned
+
+print('your final population is: %s and your final acres_owned is: %s' % (population, acres_owned))
 
 hammurabi()
+
