@@ -1,5 +1,5 @@
 # To-do
-# 1  write a piece that throws hammy out of the kingdom if he tries some funky shit with a negative number
+# 1  write a piece that throws the water master out of the county if he tries somethin with a negative number
 # if there is a drought make sure that the first line has a bit that reads in the farmers who rand out of water
 # is the environmental function working?
 
