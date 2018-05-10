@@ -1,7 +1,7 @@
 # To-do
 # write a piece that throws water master out of the kingdom if he tries to input a negative number
 # if there is a drought make sure that the first line has a bit that reads in the farmers who rand out of water
-# is the environmental function working?
+# add a "run the mode" option! 
 
 
 import random
@@ -226,8 +226,17 @@ def hammurabi():
         result1 = drought()
         if result1 == 'OH_GOD':
             population = int(round(population / 2)) # R.I.P.
+            print('              ')
             print('THERE WAS A DROUGHT!')
-
+            print('              ')
+            print('               ')
+            print('        vv       vv  /')
+            print('        ||____M__||/')
+            print('        ||       || ')
+            print('      /\||_______|| ')
+            print('     (XX)           ')
+            print('     (--)  ')
+            print('              ')
         parched = parched_pop(ACFT_to_water, population)
         if parched > population * 0.45:
             print('You\'ve parched too many of your citizens!')
@@ -251,5 +260,9 @@ def hammurabi():
 
 # print('your final population is: %s and your final acres_owned is: %s' % (population, acres_owned))
 
-hammurabi()
+population, acres_owned = hammurabi()
+
+
+def assessment(population, acres_owned):
+    '''Assesses the water master on his job, points based ranking for acres and population'''
 
