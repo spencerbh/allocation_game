@@ -136,7 +136,7 @@ def cost_of_land():
     return cost_per_acre
 
 
-# game start
+# game start)
 
 years = [1,2,3,4,5,6,7,8,9,10]
 
@@ -265,4 +265,38 @@ population, acres_owned = hammurabi()
 
 def assessment(population, acres_owned):
     '''Assesses the water master on his job, points based ranking for acres and population'''
+    if 0 < population < 50:
+        ranking = -1
+        return ranking 
+    if 50 < population < 100:
+        ranking = 0
+        return ranking
+    if 100 < population < 120:
+        ranking = 1
+        return ranking
+    if 120 < population < 140:
+        ranking = 2
+        return ranking
+    if 140 < population:
+        ranking = 3
+        return ranking
+    if 0 < acres_owned < 500:
+        Aranking = -1
+        return Aranking
+    if 500 < acres_owned < 1000:
+        Aranking = 0
+        return Aranking
+    if 1000 < acres_owned < 1200:
+        Aranking = 1
+        return Aranking
+    if 1200 < acres_owned < 1400:
+        Aranking = 2
+        return Aranking
+    if 1400 < acres_owned:
+        Aranking = 3
+        return Aranking
+        
+    total = ranking + Aranking
+    return total
+
 
